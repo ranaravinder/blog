@@ -1,91 +1,90 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from './page.module.css'
+import Link from 'next/link';
+import Image from 'next/image';
+import { getBlogViews, getTweetCount, getStarCount } from '../lib/metrics';
+import { allBlogs } from 'contentlayer/generated';
+import  PostCard  from '../components/postcard';
+import {
+  ArrowIcon,
+  GitHubIcon,
+  TwitterIcon,
+  ViewsIcon,
+  AzureBadge,
+  LinkedInIcon
+} from '../components/icons';
+import { name, about, bio, avatar, blogTitle, blogTagline } from '../lib/info';
 
-const inter = Inter({ subsets: ['latin'] })
+export const revalidate = 60;
+const env = process.env;
 
-export default function Home() {
+export async function generateMetadata({params}): Promise<Metadata | undefined> {  
+  const post = allBlogs.find((post) => post.slug === params.slug);
+  if (!post) {
+    return;
+  }
+  const {
+    title,
+    publishedAt: publishedTime,
+    summary: description,
+    image,
+    slug,
+  } = post;
+  const ogImage = image
+    ? `${env.HOST}${image}`
+    : `${env.HOST}/api/og?title=${title}`;
+
+    
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: 'article',
+      publishedTime,
+      url: `${env.HOST}/blog/${slug}`,
+      images: [
+        {
+          url: ogImage,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [ogImage],
+    },
+  };
+}
+
+export default async function HomePage() {
+  let starCount, views, tweetCount;
+
+  try {
+    [starCount, views, tweetCount] = await Promise.all([
+      getStarCount(),
+      getBlogViews(),
+      getTweetCount(),
+    ]);
+  } catch (error) {
+    console.error(error);
+  }
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    <section>
+      {
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-        <div className={styles.thirteen}>
-          <Image src="/thirteen.svg" alt="13" width={40} height={31} priority />
-        </div>
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+        allBlogs
+          .sort((a, b) => {
+            if (new Date(a.publishedAt) > new Date(b.publishedAt)) {
+              return -1;
+            }
+            return 1;
+          })
+          .map((post) => (
+            <PostCard key={post.title} post={post}></PostCard>
+          ))
+      }
+    </section>
+  );
 }

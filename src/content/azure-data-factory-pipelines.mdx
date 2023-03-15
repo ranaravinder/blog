@@ -1,0 +1,120 @@
+---
+title: 'Listing Azure Data Factory Pipelines'
+publishedAt: '2023-01-02'
+summary: 'Listing Azure Data Factory Pipelines using Azure PowerShell, Azure CLI and REST API'
+image: 'adfpipeline.png'
+---
+<Callout emoji="💡">
+This post has been updated in January 2023.
+</Callout>
+
+# Listing Azure Data Factory Pipelines
+Azure Data Factory is a cloud-based service for data integration that allows you to create, schedule, and manage data pipelines. Pipelines in Azure Data Factory represent a series of activities that move data from various sources to a destination for processing. To monitor and manage these pipelines, it is important to be able to list them in your Azure Data Factory instance. In this article, we will discuss four different approaches for listing Azure Data Factory pipelines: using the Azure Portal, PowerShell, Azure CLI, and REST API.
+
+## Listing Azure Data Factory Pipelines Using the Azure Portal
+To list Azure Data Factory pipelines using the Azure portal, follow these steps:
+
+1. Log in to the Azure portal (https://portal.azure.com/).
+2. Navigate to the Azure Data Factory instance that contains the pipelines you want to list.
+3. Click on the "Author & Monitor" button to open the Azure Data Factory authoring experience.
+4. In the authoring experience, select the "Pipelines" option from the left-hand menu.
+5. You will see a list of all the pipelines in the selected Azure Data Factory instance.
+6. You can use the filter option to narrow down the list of pipelines based on criteria such as status, trigger type, or last execution time.
+7. Click on a pipeline to view its details, including its status, last execution time, and execution history.
+
+## Listing Azure Data Factory Pipelines using Azure PowerShell
+
+PowerShell is a command-line interface for automating tasks in Azure. To list pipelines in your Azure Data Factory instance using PowerShell, follow these steps:
+
+1. Open PowerShell and connect to your Azure account using the "Connect-AzAccount" cmdlet.
+2. Use the "Select-AzSubscription" cmdlet to select the Azure subscription that contains your Azure Data Factory instance.
+3. Use the "Get-AzDataFactoryV2Pipeline" cmdlet to retrieve a list of all the pipelines in your Azure Data Factory instance.
+Here's the PowerShell code to list Azure Data Factory pipelines:
+
+```powershell title="code"
+Connect-AzAccount
+Select-AzSubscription -SubscriptionName "your-subscription-name"
+$rgName = "your-resource-group-name"
+$dfName = "your-data-factory-name"
+Get-AzDataFactoryV2Pipeline -ResourceGroupName $rgName -DataFactoryName $dfName
+```
+
+## Listing Azure Data Factory Pipelines Using Azure CLI
+The Azure CLI is a command-line interface for managing Azure services. To list pipelines in your Azure Data Factory instance using the Azure CLI, follow these steps:
+
+1. Open the Azure CLI command prompt and sign in to your Azure account using the "az login" command.
+2. Use the "az account set" command to set the active Azure subscription that contains your Azure Data Factory instance.
+3. Use the "az datafactory pipeline list" command to retrieve a list of all the pipelines in your Azure Data Factory instance.
+Here's the Azure CLI code to list Azure Data Factory pipelines:
+
+```bash
+az login
+az account set --subscription "your-subscription-id"
+az datafactory pipeline list --resource-group "your-resource-group-name" --factory-name "your-data-factory-name"
+```
+
+## Listing Azure Data Factory Pipelines Using REST API
+The Azure Data Factory REST API provides a programmatic way to interact with your Azure Data Factory instance. To list pipelines in your Azure Data Factory instance using the REST API, follow these steps:
+
+1. `Get an access token to authenticate the REST API calls. You can get an access token by making a POST request to the Azure AD token endpoint with your client ID, client secret, and tenant ID. The endpoint URL is https://login.microsoftonline.com/<Tenant ID/>/oauth2/token.`
+
+```powershell title="code"
+POST https://login.microsoftonline.com/<Tenant ID>/oauth2/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=client_credentials
+&client_id=<Client ID>
+&client_secret=<Client Secret>
+&resource=https://management.azure.com/
+```
+
+2. Make a GET request to the Azure Data Factory REST API endpoint for pipelines. The endpoint URL is in the following format:
+
+```csharp
+https://management.azure.com/subscriptions/<Subscription ID>/resourceGroups/<Resource Group Name>/providers/Microsoft.DataFactory/factories/<Data Factory Name>/pipelines?api-version=2018-06-01
+```
+You need to replace the placeholders in the URL with your subscription ID, resource group name, and data factory name.
+
+```csharp
+GET https://management.azure.com/subscriptions/<Subscription ID>/resourceGroups/<Resource Group Name>/providers/Microsoft.DataFactory/factories/<Data Factory Name>/pipelines?api-version=2018-06-01
+Authorization: Bearer <Access Token>
+```
+3. You can use query parameters to filter the list of pipelines based on criteria such as status or last execution time. For example, you can add the $filter query parameter to retrieve only the pipelines that are in progress:
+
+```csharp
+GET https://management.azure.com/subscriptions/<Subscription ID>/resourceGroups/<Resource Group Name>/providers/Microsoft.DataFactory/factories/<Data Factory Name>/pipelines?api-version=2018-06-01&$filter=status eq 'InProgress'
+Authorization: Bearer <Access Token>
+```
+4. You can also use the $select query parameter to retrieve only specific properties of the pipelines. For example, you can retrieve only the name, status, and last run time of the pipelines:
+
+```csharp
+GET https://management.azure.com/subscriptions/<Subscription ID>/resourceGroups/<Resource Group Name>/providers/Microsoft.DataFactory/factories/<Data Factory Name>/pipelines?api-version=2018-06-01&$select=name,properties/status,properties/lastRun
+Authorization: Bearer <Access Token>
+```
+
+### Summary 
+
+#### Using PowerShell
+- Open the PowerShell command prompt.
+- Use the Connect-AzAccount cmdlet to sign in to your Azure account.
+- Use the Select-AzSubscription cmdlet to select the active Azure subscription that contains the Azure Data Factory instance.
+- Use the Get-AzDataFactoryV2Pipeline cmdlet to retrieve a list of all the pipelines in the selected Azure Data Factory instance.
+- You can use the -Status parameter to narrow down the list of pipelines based on criteria such as status or last execution time.
+- You can also use the -Select parameter to retrieve only specific properties of the pipelines.
+
+#### Using the Azure CLI
+- Open the Azure CLI command prompt.
+- Use the az login command to sign in to your Azure account.
+- Use the az account set command to set the active Azure subscription that contains the Azure Data Factory instance.
+- Use the az datafactory pipeline list command to retrieve a list of all the pipelines in the selected Azure Data Factory instance.
+- You can use the --filter parameter to narrow down the list of pipelines based on criteria such as status or last execution time.
+- You can also use the --query parameter to retrieve only specific properties of the pipelines.
+
+#### Using the Azure Data Factory REST API
+- Get an access token to authenticate the REST API calls.
+- Make a GET request to the Azure Data Factory REST API endpoint for pipelines.
+- You can use query parameters to filter the list of pipelines based on criteria such as status or last execution time.
+- You can also use the $select query parameter to retrieve only specific properties of the pipelines.
+
+## Conclusion
+In this article, we discussed four different approaches for listing Azure Data Factory pipelines: using the Azure Portal, PowerShell, Azure CLI, and REST API. Each approach has its own advantages and can be used depending on your specific needs and preferences. Using the Azure Portal is the easiest way to list pipelines, while using PowerShell and Azure CLI are suitable for automating tasks and integrating with other scripts. REST API provides the most flexibility and can be used to programmatically interact with your Azure Data Factory instance. By mastering these different approaches, you can efficiently monitor and manage your data pipelines in Azure Data Factory.
