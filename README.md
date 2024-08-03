@@ -82,8 +82,7 @@ Dynamic and results-driven Azure Cloud Architect with over 16 years of progressi
   - **Azure Storage:** Blob Storage, Table Storage, Queue Storage
   - **Azure Kubernetes Service (AKS)**
   - **Azure App Configuration**
-  - **Azure Cache for Redis**
-  <!-- - **Azure Search** -->
+  - **Azure Cache for Redis**  
   - **Azure Service Bus**
   - **Azure Event Grid**
   - **Azure Logic Apps**
@@ -96,12 +95,6 @@ Dynamic and results-driven Azure Cloud Architect with over 16 years of progressi
   - **Azure Monitor**
   - **Azure Automation**
   - **Azure Key Vault**
-  <!-- - **Azure Cognitive Services**
-  - **Azure Speech Services**
-  - **Azure AI Services**
-  - **Azure Form Recognizer**
-  - **Azure Machine Learning** -->
-
 - **Azure DevOps**
 - **GitHub Actions**
 - **Azure Red Hat OpenShift**
