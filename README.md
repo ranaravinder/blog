@@ -19,56 +19,100 @@
 **[LinkedIn](https://www.linkedin.com/in/ravinder-singh-rana)**
 
 
-
 ## Summary
 
-A highly skilled Azure Cloud Architect with over 15 years of experience in IT and Business Solutions. Specialized in cloud migration, designing and implementing scalable, secure solutions using Azure technologies. Proficient in full stack development with a strong foundation in Agile and SAFe Agile methodologies. Demonstrated ability to deliver high-performance, innovative technology solutions across various industries.
+Dynamic and results-driven Azure Cloud Architect with over 16 years of progressive experience in IT and business solutions. Expertise in leading cloud migration projects, designing and implementing scalable, secure solutions using Azure technologies, and driving full stack development. Proficient in Agile and SAFe Agile methodologies, with a proven track record of delivering high-performance, innovative technology solutions across diverse industries.
 
-
+---
 
 ## Professional Experience
 
 ### **LTI Mindtree**
 **Associate Principal - Cloud Engineering | Jul 2021 - Present**
 
-- Architecting and implementing scalable, secure cloud-based solutions on Azure.
-- Leading cloud migration projects to Azure App Services and Azure Kubernetes Service (AKS).
-- Optimizing cloud infrastructure for performance and cost-effectiveness.
-- Ensuring security and compliance of cloud solutions through rigorous protocols and audits.
-- Designing migration strategies from brownfield to greenfield environments.
-- Developing automation scripts for resource migration, optimization, and security compliance.
-- Leading cross-functional teams in architecture design sessions and solution implementation.
+- Spearheaded the architecture and implementation of scalable, secure cloud-based solutions on Azure.
+- Led major cloud migration projects, transitioning clients to Azure App Services and Azure Kubernetes Service (AKS).
+- Utilized **Azure DevOps** and **GitHub Actions** to streamline CI/CD pipelines, enhancing deployment efficiency and reducing time-to-market.
+- Deployed and managed **Azure Red Hat OpenShift** clusters for containerized application environments, improving scalability and performance.
+- Employed **Azure AppCat Assessment Tool** to evaluate and recommend optimizations for app performance and cost-efficiency.
+- Optimized cloud infrastructure to enhance performance and cost-efficiency.
+- Ensured robust security and compliance of cloud solutions through rigorous protocols and audits.
+- Devised migration strategies for transitioning from brownfield to greenfield environments.
+- Developed automation scripts for resource migration, optimization, and security compliance.
+- Facilitated architecture design sessions and guided cross-functional teams in solution implementation.
 
 ### **Emirates Group**
 **IT Consultant | Apr 2019 - Jul 2021**
 
-- Developed and maintained web applications and APIs using C#, ASP.NET, JavaScript, ReactJS, and NodeJS.
-- Implemented secure, accessible web solutions compliant with ARIA roles and WCAG standards.
+- Developed and maintained complex web applications and APIs using C#, ASP.NET, JavaScript, ReactJS, and NodeJS.
+- Delivered secure, accessible web solutions compliant with ARIA roles and WCAG standards.
 - Managed web traffic, deployment strategies, and provided robust production support.
 - Ensured compliance with GDPR and PSD2 for various web applications.
-- Conducted unit and integration testing, debugging, and performance optimization.
+- Conducted comprehensive unit and integration testing, debugging, and performance optimization.
 
 ### **Amadeus India Pvt. Ltd.**
-Technical Project Lead | Feb 2011 - Apr 2019
+**Technical Project Lead | Feb 2011 - Apr 2019**
+
+- Directed projects involving large-scale web applications and services.
+- Collaborated with cross-functional teams to design and implement software solutions.
+- Streamlined project workflows, enhancing efficiency and delivery timelines.
 
 ### **Symphony Infotech**
-Software Developer | May 2007 - Feb 2011
+**Software Developer | May 2007 - Feb 2011**
+
+- Engineered software solutions for Real Estate Management Systems, HRMS, and TV Channel story management systems (similar to Octopus).
+- Contributed to the full software development lifecycle, from requirements gathering to deployment.
 
 ### **BlueHill Solutions Ltd.**
-System Developer | Oct 2001 - Feb 2007
+**System Developer | Oct 2001 - Feb 2007**
 
+- Developed various software, voice, and data communication products and solutions for Indian Railways, such as Integrated Digital Train Platform Announcement and Display System, Digital Voice Logger (Black Box), and IVRS.
+- Participated in all phases of the system development lifecycle, ensuring robust and scalable solutions.
 
+---
 
 ## Skills
 
 ### **Cloud Technologies**
-- **Azure:** App Service, Functions, Storage, Cosmos DB, SQL Database, Event Grid, Databricks, Service Bus, Kubernetes Service (AKS), DevOps, Monitor, Log Analytics, Data Factory, Data Lake, Automation, ACR, ACI, APIM.
+- **Azure PaaS Offerings:**
+  - **App Services:** Web Apps, Mobile Apps, API Apps
+  - **Azure Functions**
+  - **Azure SQL Database**
+  - **Azure Cosmos DB**
+  - **Azure Storage:** Blob Storage, Table Storage, Queue Storage
+  - **Azure Kubernetes Service (AKS)**
+  - **Azure App Configuration**
+  - **Azure Cache for Redis**
+  <!-- - **Azure Search** -->
+  - **Azure Service Bus**
+  - **Azure Event Grid**
+  - **Azure Logic Apps**
+  - **Azure API Management**
+  - **Azure Data Factory**
+  - **Azure Data Lake Storage**
+  - **Azure Databricks**
+  - **Azure Synapse Analytics (formerly SQL Data Warehouse)**
+  - **Azure Application Insights**
+  - **Azure Monitor**
+  - **Azure Automation**
+  - **Azure Key Vault**
+  <!-- - **Azure Cognitive Services**
+  - **Azure Speech Services**
+  - **Azure AI Services**
+  - **Azure Form Recognizer**
+  - **Azure Machine Learning** -->
+
+- **Azure DevOps**
+- **GitHub Actions**
+- **Azure Red Hat OpenShift**
+- **Azure AppCat Assessment Tool**
+
 
 ### **Programming Languages**
-- C#, ASP.NET, .NET Core, JavaScript, ReactJS, NextJS, NodeJS, Python, KQL.
+- C#, ASP.NET, .NET Core, JavaScript, ReactJS, NextJS, NodeJS, Python, KQL, SQL, VB6, VB.NET, Angular
 
 ### **Databases**
-- SQL, Azure Cosmos DB.
+- SQL, Azure Cosmos DB, MongoDB 
 
 ### **Tools & Technologies**
 - JIRA, Confluence, SAFe Agile, Splunk, Postman, Git/Bitbucket, Mantis, Tridion, NVDA, JAWS.
@@ -107,12 +151,14 @@ System Developer | Oct 2001 - Feb 2007
 
 ## Projects & Contributions
 
-- **Azure Migration Projects:** Successfully migrated multiple clients to Azure App Services and AKS, optimizing their infrastructure for better performance and cost efficiency.
-- **Security Audits:** Conducted comprehensive security audits to ensure compliance and robust protection of client data.
-- **Automation & Optimization:** Developed scripts for automating resource management, ensuring efficient use of cloud resources and minimizing costs.
+- **CI/CD Pipelines:** Implemented Azure DevOps and GitHub Actions for automated build, test, and deployment pipelines, significantly reducing manual intervention and deployment time.
+- **Containerization:** Deployed and managed applications on Azure Red Hat OpenShift, enhancing the scalability and reliability of containerized environments.
+- **Performance Optimization:** Utilized Azure AppCat Assessment Tool to perform in-depth assessments and implement optimizations for applications, leading to improved performance and reduced costs.
 
 ---
 
 ## Contact
 
 For more information or to connect, please reach out via email at talk2rana@gmail.com or through [LinkedIn](https://www.linkedin.com/in/ravinder-singh-rana).
+
+
