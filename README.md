@@ -4,9 +4,9 @@
 
 <!-- ![Avatar](rravatar.JPG)   -->
 
-<img src="rravatar.jpg" alt="Avatar" width="804" height="340">
+<!-- <img src="rravatar.jpg" alt="Avatar" width="804" height="340"> -->
 
-<!-- <img src="https://media.licdn.com/dms/image/C4D03AQEh-FaAT-_fAw/profile-displayphoto-shrink_400_400/0/1621185927634?e=1727913600&v=beta&t=olGe9Imyt35a4XPGMGucgTUqDWXhrsO_03Ez2L1t30M" alt="Avatar" width="100" height="100"> -->
+<img src="https://media.licdn.com/dms/image/C4D03AQEh-FaAT-_fAw/profile-displayphoto-shrink_400_400/0/1621185927634?e=1727913600&v=beta&t=olGe9Imyt35a4XPGMGucgTUqDWXhrsO_03Ez2L1t30M" alt="Avatar" width="100" height="100">
 
 <!-- 
 **Azure Cloud Architect | 5x Azure Certified | Full Stack Developer | Agile Practitioner**
