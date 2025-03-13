@@ -152,6 +152,173 @@ Dynamic and results-driven Azure Cloud Architect with over 16 years of progressi
 
 ## Contact
 
+
+
+Here’s a **step-by-step guide** to configure Azure Application Gateway (AGW) for your internal Azure Container Apps (ACA) using its IP address directly (without a public domain):
+
+---
+
+### **Prerequisites**
+1. **ACA Environment**:
+   - 3+ apps with **internal ingress** enabled and unique hostnames (e.g., `app1.internal`, `app2.internal`).
+   - ACA environment deployed in a VNet with **private DNS** (e.g., `privatelink.azurecontainerapps.io`).
+2. **VNet**:
+   - ACA environment and Application Gateway must reside in the **same VNet** (or peered VNets).
+   - Dedicated subnet for Application Gateway (e.g., `10.0.1.0/24`).
+3. **Permissions**:
+   - Contributor/owner access to the Azure subscription.
+
+---
+
+### **Step 1: Deploy Application Gateway**
+1. **Create a Public IP**:
+   - Go to Azure Portal → **Public IP Addresses** → Create.
+   - Name: `appgw-pip`, SKU: **Standard**, Assignment: **Static**.
+2. **Create Application Gateway**:
+   - Go to **Application Gateway** → Create.
+   - **Basics**:
+     - VNet: Select the VNet where ACA resides.
+     - Subnet: Dedicated subnet (e.g., `10.0.1.0/24`).
+     - Frontend IP: **Public** → Attach the `appgw-pip` IP.
+   - **Backends**:
+     - Skip backend pool setup for now (configure later).
+   - **Configuration**:
+     - Add a **listener**:
+       - Name: `http-listener`.
+       - Protocol: **HTTP**, Port: `80`.
+       - Leave "Hostname" empty (we’ll use IP-based access).
+     - Add a **routing rule**:
+       - Name: `aca-routing-rule`.
+       - Listener: `http-listener`.
+       - Backend target: **Create new backend pool** (we’ll configure in Step 2).
+       - HTTP settings: **Create new** (configure in Step 3).
+   - Finish deployment.
+
+---
+
+### **Step 2: Configure Backend Pool**
+1. **Find the ACA ILB Private IP**:
+   - Go to your ACA Environment → **Properties** → **Static IP** (e.g., `10.0.0.4`).
+2. **Update AGW Backend Pool**:
+   - Go to Application Gateway → **Backend Pools** → Edit the default pool.
+   - Add backend target:
+     - Type: **IP address or FQDN**.
+     - Target: `10.0.0.4` (ACA ILB IP).
+   - Save.
+
+---
+
+### **Step 3: Configure HTTP Settings with Rewrite Rule**
+1. **Create a Rewrite Rule Set**:
+   - Go to Application Gateway → **Rewrite Rules** → **Add Rewrite Rule Set**.
+   - Name: `host-header-rewrite`.
+   - Add a rule:
+     - **Name**: `set-host-header`.
+     - **Action**: `Set request header`.
+     - **Header Name**: `Host`.
+     - **Header Value**: `{var_http_req_Host}` (preserve original Host header).
+   - Save.
+2. **Update HTTP Settings**:
+   - Go to **HTTP Settings** → Edit the default setting.
+   - **Backend Protocol**: HTTP.
+   - **Port**: 80.
+   - **Override backend path**: No.
+   - **Rewrite Rule Set**: Attach `host-header-rewrite`.
+   - Save.
+
+---
+
+### **Step 4: Configure Multi-Site Listener (Host-Based Routing)**
+1. **Update Listener**:
+   - Go to **Listeners** → Edit `http-listener`.
+   - **Listener Type**: **Multi-site** (required for host-based routing).
+   - **Hostname**: Leave empty (or use a placeholder like `dummy-host`).
+   - Save.
+
+---
+
+### **Step 5: Private DNS Configuration**
+1. **Verify ACA App Hostnames**:
+   - Each ACA app must have a unique hostname (e.g., `app1.internal`, `app2.internal`).
+   - Confirm these hostnames resolve to the ACA ILB IP (`10.0.0.4`) in your VNet’s private DNS zone (`privatelink.azurecontainerapps.io`).
+     - Example DNS record for `app1.internal`:
+       - **Name**: `app1`.
+       - **Type**: `A`.
+       - **Value**: `10.0.0.4`.
+
+---
+
+### **Step 6: Test via Hosts File**
+1. **Get Application Gateway Public IP**:
+   - Go to Application Gateway → **Frontend Public IP** → Copy the IP (e.g., `20.1.1.1`).
+2. **Modify Local Hosts File**:
+   - On your local machine, edit `C:\Windows\System32\drivers\etc\hosts` (Windows) or `/etc/hosts` (Linux/macOS):
+     ```
+     20.1.1.1  app1.internal
+     20.1.1.1  app2.internal
+     20.1.1.1  app3.internal
+     ```
+3. **Access Apps**:
+   - Open a browser and navigate to `http://app1.internal`.
+   - The request flows:  
+     `Your PC → App Gateway (20.1.1.1) → ACA ILB (10.0.0.4) → Target ACA App`.
+
+---
+
+### **Step 7: Add New Apps**
+1. **Deploy a New ACA App**:
+   - Configure its ingress with a unique hostname (e.g., `app4.internal`).
+   ```yaml
+   ingress:
+     internal: true
+     targetPort: 80
+     external: false
+     traffic:
+       - latestRevision: true
+         weight: 100
+   ```
+2. **Update DNS**:
+   - Add a new A record in your private DNS zone for `app4.internal` → `10.0.0.4`.
+3. **Update Hosts File**:
+   - Add `20.1.1.1  app4.internal` to your local `hosts` file.
+4. **Access the New App**:
+   - Navigate to `http://app4.internal`.
+
+---
+
+### **Validation & Troubleshooting**
+- **Check Host Headers**:
+  - Use Application Gateway logs (go to **Diagnostic Settings** → Enable logs) to verify the `Host` header sent to ACA matches the app’s hostname.
+- **Test Connectivity**:
+  - From a VM in the same VNet, run `curl -H "Host: app1.internal" http://10.0.0.4` to confirm ACA ILB routes correctly.
+- **NSG Rules**:
+  - Ensure the App Gateway subnet can communicate with the ACA subnet over port 80.
+
+---
+
+### **Diagram**
+```
+Client (http://app1.internal → hosts file → AGW Public IP 20.1.1.1)  
+  ↓  
+Application Gateway (forwards Host: app1.internal to ACA ILB 10.0.0.4)  
+  ↓  
+ACA ILB (routes to app1.internal via private DNS)  
+  ↓  
+ACA App
+```
+
+---
+
+### **Next Steps**
+- **Add HTTPS**:
+  - Upload a wildcard SSL certificate to AGW and configure an HTTPS listener.
+- **Enable WAF**:
+  - Switch to the **WAF_v2** SKU and define security policies.
+- **Public DNS**:
+  - Replace the hosts file with public DNS A records pointing to AGW’s IP.
+
+This setup allows immediate access via IP and scales seamlessly for future apps!
+
 For more information or to connect, please reach out via email at talk2rana@gmail.com or through [LinkedIn](https://www.linkedin.com/in/ravinder-singh-rana).
 
 
