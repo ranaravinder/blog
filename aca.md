@@ -1,8 +1,6 @@
 ---
-
 # **Runbook: VNet-Enabled Azure Container Apps (ACA)**  
-**Purpose**: Securely deploy Azure Container Apps in a VNet with private ingress, Application Gateway (WAF), and compliance guardrails.  
-
+# **Purpose**: Securely deploy Azure Container Apps in a VNet with private ingress, Application Gateway (WAF), and compliance guardrails.  
 ---
 
 ## **1. Objective and Scope**  
