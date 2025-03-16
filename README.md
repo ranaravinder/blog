@@ -151,6 +151,7 @@ Dynamic and results-driven Azure Cloud Architect with over 16 years of progressi
 ---
 
 ## Contact
+[ACA](https://github.com/ranaravinder/blog/edit/main/aca.md)
 
 For more information or to connect, please reach out via email at talk2rana@gmail.com or through [LinkedIn](https://www.linkedin.com/in/ravinder-singh-rana).
 
